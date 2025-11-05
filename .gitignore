@@ -1,0 +1,12 @@
+# Python
+__pycache__/
+*.pyc
+.env
+
+# Allure
+allure-results/
+allure-report/
+
+# IDE
+.vscode/
+.idea/
