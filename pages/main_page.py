@@ -5,6 +5,7 @@ from data.urls import Urls
 
 
 class MainPage(BasePage):
+    # Локаторы
     HEADER_ORDER_BUTTON = (By.XPATH, "//button[text()='Заказать' and contains(@class, 'Button_Button')]")
     BOTTOM_ORDER_BUTTON = (By.XPATH, "//div[contains(@class, 'Home_FinishButton')]//button[text()='Заказать']")
     SCOOTER_LOGO = (By.XPATH, "//a[@class='Header_LogoScooter__3lsAR']")
@@ -25,23 +26,27 @@ class MainPage(BasePage):
     def click_scooter_logo(self):
         self.click(self.SCOOTER_LOGO)
 
+    @allure.step("Нажать логотип 'Яндекса'")
+    def click_yandex_logo(self):
+        self.click(self.YANDEX_LOGO)
+
     @allure.step("Получить href логотипа Яндекса")
     def get_yandex_logo_href(self):
-        return self.driver.find_element(*self.YANDEX_LOGO).get_attribute("href")
+        return self.get_attribute(self.YANDEX_LOGO, "href")
 
     @allure.step("Нажать на вопрос FAQ {index}")
     def click_faq_question(self, index):
-        questions = self.driver.find_elements(*self.FAQ_BUTTONS)
+        questions = self.find_elements(self.FAQ_BUTTONS)
         questions[index].click()
 
     @allure.step("Получить текст ответа {index}")
     def get_answer_text(self, index):
-        answers = self.driver.find_elements(*self.FAQ_PANELS)
+        answers = self.find_elements(self.FAQ_PANELS)
         return answers[index].text
 
-    @allure.step("Проверить видимость ответа {index}")
+    @allure.step("Проверить, что ответ {index} виден")
     def is_answer_visible(self, index):
-        answers = self.driver.find_elements(*self.FAQ_PANELS)
+        answers = self.find_elements(self.FAQ_PANELS)
         return answers[index].is_displayed()
 
     @allure.step("Принять куки")
